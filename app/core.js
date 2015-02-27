@@ -1,11 +1,16 @@
+/*
 
+Copyright (c) 2015 shyjal raazi
 
-var Sound=function(source){
+Github : https://github.com/shyjal/WebAudio
 
-	var that=this;
+*/
+
+var Sound=function(source,level){
+
 	var isLoaded=false;
 
-	//Declaring audio context
+	//Creating audio context
 	window.AudioContext = window.AudioContext || window.webkitAudioContext;
 	ac = new AudioContext();
 
@@ -23,16 +28,30 @@ var Sound=function(source){
 	};
 	ajax.send();
 
+	this.play=function(level,delay){
 
-
-	that.play=function(){
-
+		delay=delay||0;
+		level=(level/100)||1;
+		
 		//Creating source node, connecting it to destination and start play
 		if(isLoaded){
-			var playsound=ac.createBufferSource();
-			playsound.buffer=bufferedSound;
-			playsound.connect(ac.destination);
-			playsound.start(0);
+
+			//Creating Source node
+			var sourceNode=ac.createBufferSource();
+			sourceNode.buffer=bufferedSound;
+
+			//Creating volume node
+			var volumeNode=ac.createGain();
+			volumeNode.gain.value=level;
+
+			//Creating Destination node
+			var destinationNode=ac.destination;
+
+			//Connecting nodes Source >> Volume >> Destination
+			sourceNode.connect(volumeNode);
+			volumeNode.connect(destinationNode);
+
+			sourceNode.start(delay);
 		}
 
 	};
