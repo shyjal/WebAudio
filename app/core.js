@@ -12,7 +12,11 @@ var Sound=function(source,level){
 
 	//Creating audio context
 	window.AudioContext = window.AudioContext || window.webkitAudioContext;
-	ac = new AudioContext();
+	window.ac = new AudioContext();
+
+
+	//Creating Destination node
+	window.destinationNode=ac.destination;
 
 	// Fetching and decoding audio from url
 	var bufferedSound;
@@ -44,8 +48,6 @@ var Sound=function(source,level){
 			var volumeNode=ac.createGain();
 			volumeNode.gain.value=level;
 
-			//Creating Destination node
-			var destinationNode=ac.destination;
 
 			//Connecting nodes Source >> Volume >> Destination
 			sourceNode.connect(volumeNode);
