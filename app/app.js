@@ -23,4 +23,22 @@ window.startPlay=function(){
 	s1.play(10,4);
 }
 
+window.startMic=function(){
+
+	navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia;
+  window.URL = window.URL || window.webkitURL;
+  navigator.getUserMedia({
+      audio : "true"
+  }, function(stream){
+  	
+  	var input = window.ac.createMediaStreamSource(stream);
+    input.connect(window.destinationNode);
+
+   },errorCallBack);
+}
+
+function errorCallBack(){
+	console.log('Microphone input not supported in your browser.');
+}
+
 })();
