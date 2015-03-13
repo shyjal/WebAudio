@@ -1,4 +1,4 @@
-
+(function() {
 
 /*
 // Audio tag - classic html5
@@ -22,3 +22,5 @@ window.startPlay=function(){
 	s2.play(100,1);
 	s1.play(10,4);
 }
+
+})();
